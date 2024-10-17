@@ -23,18 +23,21 @@ export default class Game {
     }
 
     setStaticObjects() {
-        // Static line
-        this.bgLine.lineStyle(2, 0x000000)  // Line style (black)
-            .moveTo(0, 200)          // Start point
-            .lineTo(this.app.screen.width, 200); // End point (full screen width)
-        this.app.stage.addChild(this.bgLine);
         // Static ellipse at the hit zone
         const hitZoneCircle = new PIXI.Graphics();
         hitZoneCircle.lineStyle(2, 0x000000)   // Outline color (black)
             .beginFill(0xffffff)               // Fill color (white)
-            .drawCircle(hitZone, 200, radius / 2) // Circle at (375, 200) with half-radius
+            .drawCircle(hitZone, timelineY, radius / 2) // Circle at (375, 200) with half-radius
             .endFill();
         this.app.stage.addChild(hitZoneCircle);
+
+         // Static line
+        const timelineTexture = PIXI.Texture.from('./assets/icons/timeline.svg');
+        const timeline = new PIXI.Sprite(timelineTexture);
+        timeline.anchor.set(0.5, 0.5);
+        timeline.x = window.innerWidth / 2;
+        timeline.y = timelineY;
+        this.app.stage.addChild(timeline);
     }
 
     createTargets () {
@@ -47,7 +50,7 @@ export default class Game {
 
         // player one
         for (let i = 0; i < numOfTargets; i++) {
-            //type = Math.random() < 0.5 ? 1 : 0;
+            type = Math.random() < 0.5 ? 1 : 0;
             length = Math.random() * (100) + 100;
            
             if(type === 0) {

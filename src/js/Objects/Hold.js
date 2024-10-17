@@ -64,9 +64,9 @@ export default class Hold extends Chou {
         this.barGraphics.beginFill(this.color);  // Black color for bar
         // draw according to direction
         if(this.direction === 1) {
-            this.barGraphics.drawRect(this.barPos  - this.rectLength, 200 - holdBarHeight / 2, this.rectLength, holdBarHeight);
+            this.barGraphics.drawRect(this.barPos  - this.rectLength, timelineY - holdBarHeight / 2, this.rectLength, holdBarHeight);
         } else {
-            this.barGraphics.drawRect(this.barPos, 200 - holdBarHeight / 2, this.rectLength, holdBarHeight);
+            this.barGraphics.drawRect(this.barPos, timelineY - holdBarHeight / 2, this.rectLength, holdBarHeight);
         }
         this.barGraphics.endFill();
     }
@@ -85,8 +85,8 @@ export default class Hold extends Chou {
         return this.timer < precision && this.timer > - precision
     }
 
-    showFeedback(container) {
-        this.color = this.isHoldCorrect() ? 0x00FF00 : 0xFF0000;
+    showFeedback() {
+        //this.color = this.isHoldCorrect() ? 0x00FF00 : 0xFF0000;
     }
 
     timeIsUp() {

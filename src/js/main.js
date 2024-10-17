@@ -16,8 +16,9 @@ const createApp = async() => {
     await setUpButtons()
     const game = new Game(app, )
     game.init()
+   
 
-    const handleButtonADown = (playerID) => {
+    const handleButtonDown = (playerID) => {
         let target = game.targets[playerID][0];
         if(!target) return
         target.showFeedback()
@@ -27,29 +28,17 @@ const createApp = async() => {
         }
     }
 
-    // Static line
-    const timelineTexture = PIXI.Texture.from('./assets/icons/timeline.svg');
-    const timeline = new PIXI.Sprite(timelineTexture);
-    timeline.anchor.set(0.5, 0.5);
-    
-    timeline.x = window.innerWidth / 2;
-    timeline.y = timelineY;
-    
-    app.stage.addChild(timeline);
-    
-
-
-    const handleButtonAUp = (playerID) => {
+    const handleButtonUp = (playerID) => {
         const target = game.targets[playerID][0]
         game.userIsHolding = false;
         target.showFeedback()
-        if(target.isHoldCorrect()) showProut()
+        if(target.type === 'hold' && target.isHoldCorrect()) showProut()
     }
 
-    player1.buttons[0].addEventListener('keydown',() => handleButtonADown(1))
-    player1.buttons[0].addEventListener('keyup',() => handleButtonAUp(1))
-    player2.buttons[0].addEventListener('keydown',() => handleButtonADown(2))
-    player2.buttons[0].addEventListener('keyup', () => handleButtonAUp(2))
+    player1.buttons[0].addEventListener('keydown',() => handleButtonDown(1))
+    player1.buttons[0].addEventListener('keyup',() => handleButtonUp(1))
+    player2.buttons[0].addEventListener('keydown',() => handleButtonDown(2))
+    player2.buttons[0].addEventListener('keyup', () => handleButtonUp(2))
 
     const update = () => {
         game.updateAll()
